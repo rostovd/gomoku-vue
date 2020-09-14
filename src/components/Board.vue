@@ -43,6 +43,7 @@ export default {
           this.message = "Not empty";
         }
         this.horizontalCheck();
+        this.verticalCheck();
       }
     },
     horizontalCheck() {
@@ -51,6 +52,27 @@ export default {
         for (let col = 0; col <= this.cols - 1; col++) {
           if (
             this.board[row][col] === this.board[row][col + 1] &&
+            this.board[row][col] &&
+            this.counter !== this.winSequence
+          ) {
+            this.counter += 1;
+          } else {
+            this.counter = 1;
+          }
+          if (this.counter === 5) {
+            this.winner = `${
+              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
+            } is a winner`;
+          }
+        }
+      }
+    },
+    verticalCheck() {
+      //checking columns starts from first column
+      for (let col = 0; col <= this.cols - 1; col++) {
+        for (let row = 0; row < this.rows - 1; row++) {
+          if (
+            this.board[row][col] === this.board[row + 1][col] &&
             this.board[row][col] &&
             this.counter !== this.winSequence
           ) {
