@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h2>Turn: {{ whosTurn }}</h2>
+    <h2 v-if="!winner">Turn: {{ whosTurn }}</h2>
+    <h2 v-else>{{ winner }}</h2>
     <button @click.prevent="playAgain">Play New Game</button>
     <ul v-for="(row, x) of board" v-bind:key="x">
       <li v-for="(col, y) of row" v-bind:key="y" v-on:click="turn(x, y)">
@@ -22,11 +23,15 @@ export default {
       playerOne: "X",
       playerTwo: "O",
       message: "",
+      winSequence: 5,
+      winner: "",
       turnCount: 0,
+      counter: 1,
     };
   },
   methods: {
     turn(x, y) {
+      if (!this.winner) {
         this.message = "";
         if (this.turnCount % 2 === 0 && !this.board[x][y]) {
           this.board[x][y] = "X";
@@ -37,6 +42,29 @@ export default {
         } else {
           this.message = "Not empty";
         }
+        this.horizontalCheck();
+      }
+    },
+    horizontalCheck() {
+      //checking rows starts from first row
+      for (let row = 0; row <= this.rows - 1; row++) {
+        for (let col = 0; col <= this.cols - 1; col++) {
+          if (
+            this.board[row][col] === this.board[row][col + 1] &&
+            this.board[row][col] &&
+            this.counter !== this.winSequence
+          ) {
+            this.counter += 1;
+          } else {
+            this.counter = 1;
+          }
+          if (this.counter === 5) {
+            this.winner = `${
+              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
+            } is a winner`;
+          }
+        }
+      }
     },
     playAgain() {
       window.location.reload();
