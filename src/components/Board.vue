@@ -207,17 +207,26 @@ ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  max-width: 290px;
+  max-width: 550px;
   margin: 0 auto;
   padding: 0;
-  font-size: 10px;
 }
 li {
   border: 1px solid black;
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+@media (min-width: 320px) and (max-width: 767px) {
+  li {
+    width: 20px;
+    height: 20px;
+  }
+  ul {
+    max-width: 290px;
+    font-size: 10px;
+  }
 }
 </style>
