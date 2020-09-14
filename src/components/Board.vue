@@ -44,6 +44,7 @@ export default {
         }
         this.horizontalCheck();
         this.verticalCheck();
+        this.diagonalCheck();
       }
     },
     horizontalCheck() {
@@ -73,6 +74,100 @@ export default {
         for (let row = 0; row < this.rows - 1; row++) {
           if (
             this.board[row][col] === this.board[row + 1][col] &&
+            this.board[row][col] &&
+            this.counter !== this.winSequence
+          ) {
+            this.counter += 1;
+          } else {
+            this.counter = 1;
+          }
+          if (this.counter === 5) {
+            this.winner = `${
+              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
+            } is a winner`;
+          }
+        }
+      }
+    },
+    diagonalCheck() {
+      //checking from top-left corner to bottom-right starts at first row
+      for (let rowStart = 0; rowStart <= this.rows - 5; rowStart++) {
+        for (
+          let row = rowStart, col = 0;
+          row < this.rows - 1 && col < this.cols - 1;
+          row++, col++
+        ) {
+          if (
+            this.board[row][col] === this.board[row + 1][col + 1] &&
+            this.board[row][col] &&
+            this.counter !== this.winSequence
+          ) {
+            this.counter += 1;
+          } else {
+            this.counter = 1;
+          }
+          if (this.counter === 5) {
+            this.winner = `${
+              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
+            } is a winner`;
+          }
+        }
+      }
+      //checking from top-left corner to bottom-right starts at first column
+      for (let colStart = 1; colStart <= this.cols - 5; colStart++) {
+        for (
+          let row = 0, col = colStart;
+          row < this.rows - 1 && col < this.cols - 1;
+          row++, col++
+        ) {
+          if (
+            this.board[row][col] === this.board[row + 1][col + 1] &&
+            this.board[row][col] &&
+            this.counter !== this.winSequence
+          ) {
+            this.counter += 1;
+          } else {
+            this.counter = 1;
+          }
+          if (this.counter === 5) {
+            this.winner = `${
+              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
+            } is a winner`;
+          }
+        }
+      }
+      //checking from bottom-left corner to top-right starts at last row
+      for (let rowStart = this.rows - 1; rowStart >= 4; rowStart--) {
+        for (
+          let row = rowStart, col = 0;
+          row > 0 && col < this.cols - 1;
+          row--, col++
+        ) {
+          if (
+            this.board[row][col] === this.board[row - 1][col + 1] &&
+            this.board[row][col] &&
+            this.counter !== this.winSequence
+          ) {
+            this.counter += 1;
+          } else {
+            this.counter = 1;
+          }
+          if (this.counter === 5) {
+            this.winner = `${
+              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
+            } is a winner`;
+          }
+        }
+      }
+      //checking from bottom-left corner to top-right starts from 1 column
+      for (let colStart = 1; colStart <= this.cols - 5; colStart++) {
+        for (
+          let row = this.rows - 1, col = colStart;
+          row > 0 && col < this.cols - 1;
+          row--, col++
+        ) {
+          if (
+            this.board[row][col] === this.board[row - 1][col + 1] &&
             this.board[row][col] &&
             this.counter !== this.winSequence
           ) {
