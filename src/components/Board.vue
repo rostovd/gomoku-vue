@@ -51,20 +51,8 @@ export default {
       //checking rows starts from first row
       for (let row = 0; row <= this.rows - 1; row++) {
         for (let col = 0; col <= this.cols - 1; col++) {
-          if (
-            this.board[row][col] === this.board[row][col + 1] &&
-            this.board[row][col] &&
-            this.counter !== this.winSequence
-          ) {
-            this.counter += 1;
-          } else {
-            this.counter = 1;
-          }
-          if (this.counter === 5) {
-            this.winner = `${
-              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
-            } is a winner`;
-          }
+          let nextValue = this.board[row][col + 1]
+          this.winnerCheck(row, col, nextValue);
         }
       }
     },
@@ -72,20 +60,8 @@ export default {
       //checking columns starts from first column
       for (let col = 0; col <= this.cols - 1; col++) {
         for (let row = 0; row < this.rows - 1; row++) {
-          if (
-            this.board[row][col] === this.board[row + 1][col] &&
-            this.board[row][col] &&
-            this.counter !== this.winSequence
-          ) {
-            this.counter += 1;
-          } else {
-            this.counter = 1;
-          }
-          if (this.counter === 5) {
-            this.winner = `${
-              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
-            } is a winner`;
-          }
+          let nextValue = this.board[row + 1][col]
+          this.winnerCheck(row, col, nextValue);
         }
       }
     },
@@ -97,20 +73,8 @@ export default {
           row < this.rows - 1 && col < this.cols - 1;
           row++, col++
         ) {
-          if (
-            this.board[row][col] === this.board[row + 1][col + 1] &&
-            this.board[row][col] &&
-            this.counter !== this.winSequence
-          ) {
-            this.counter += 1;
-          } else {
-            this.counter = 1;
-          }
-          if (this.counter === 5) {
-            this.winner = `${
-              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
-            } is a winner`;
-          }
+          let nextValue = this.board[row + 1][col + 1]
+          this.winnerCheck(row, col, nextValue)
         }
       }
       //checking from top-left corner to bottom-right starts at first column
@@ -120,20 +84,8 @@ export default {
           row < this.rows - 1 && col < this.cols - 1;
           row++, col++
         ) {
-          if (
-            this.board[row][col] === this.board[row + 1][col + 1] &&
-            this.board[row][col] &&
-            this.counter !== this.winSequence
-          ) {
-            this.counter += 1;
-          } else {
-            this.counter = 1;
-          }
-          if (this.counter === 5) {
-            this.winner = `${
-              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
-            } is a winner`;
-          }
+          let nextValue = this.board[row + 1][col + 1]
+          this.winnerCheck(row, col, nextValue)
         }
       }
       //checking from bottom-left corner to top-right starts at last row
@@ -143,20 +95,8 @@ export default {
           row > 0 && col < this.cols - 1;
           row--, col++
         ) {
-          if (
-            this.board[row][col] === this.board[row - 1][col + 1] &&
-            this.board[row][col] &&
-            this.counter !== this.winSequence
-          ) {
-            this.counter += 1;
-          } else {
-            this.counter = 1;
-          }
-          if (this.counter === 5) {
-            this.winner = `${
-              this.turnCount % 2 === 0 ? "Player Two" : "Player One"
-            } is a winner`;
-          }
+          let nextValue = this.board[row - 1][col + 1]
+          this.winnerCheck(row, col, nextValue)
         }
       }
       //checking from bottom-left corner to top-right starts from 1 column
@@ -166,8 +106,14 @@ export default {
           row > 0 && col < this.cols - 1;
           row--, col++
         ) {
-          if (
-            this.board[row][col] === this.board[row - 1][col + 1] &&
+          let nextValue = this.board[row - 1][col + 1]
+          this.winnerCheck(row, col, nextValue)
+        }
+      }
+    },
+    winnerCheck(row, col, nextVal) {
+      if (
+            this.board[row][col] === nextVal &&
             this.board[row][col] &&
             this.counter !== this.winSequence
           ) {
@@ -180,8 +126,6 @@ export default {
               this.turnCount % 2 === 0 ? "Player Two" : "Player One"
             } is a winner`;
           }
-        }
-      }
     },
     playAgain() {
       window.location.reload();
