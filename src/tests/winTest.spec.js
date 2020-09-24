@@ -4,25 +4,25 @@ describe("Winner test", () => {
     switch (line) {
       case "horizontal":
         for (let i = 1; i <= turns; i++) {
-          cy.get(`[data-cy=row]:nth-of-type(1) > li:nth-child(${i})`).click();
-          cy.get(`[data-cy=row]:nth-of-type(2) > li:nth-child(${i})`).click();
+          cy.get(`[data-cy=row]:nth-of-type(1) > [data-cy=col]:nth-child(${i})`).click();
+          cy.get(`[data-cy=row]:nth-of-type(2) > [data-cy=col]:nth-child(${i})`).click();
         }
         cy.get("[data-cy=winner]").should("contain", expected);
         break;
       case "vertical":
         for (let i = 1; i <= turns; i++) {
-          cy.get(`[data-cy=row]:nth-of-type(${i}) > li:nth-child(1)`).click();
-          cy.get(`[data-cy=row]:nth-of-type(${i}) > li:nth-child(2)`).click();
+          cy.get(`[data-cy=row]:nth-of-type(${i}) > [data-cy=col]:nth-child(1)`).click();
+          cy.get(`[data-cy=row]:nth-of-type(${i}) > [data-cy=col]:nth-child(2)`).click();
         }
         cy.get("[data-cy=winner]").should("contain", expected);
         break;
       case "diagonal":
         for (let i = 1; i <= turns; i++) {
           cy.get(
-            `[data-cy=row]:nth-of-type(${i}) > li:nth-child(${i})`
+            `[data-cy=row]:nth-of-type(${i}) > [data-cy=col]:nth-child(${i})`
           ).click();
           cy.get(
-            `[data-cy=row]:nth-of-type(8) > li:nth-child(${i + 1})`
+            `[data-cy=row]:nth-of-type(1) > [data-cy=col]:nth-child(${i+1})`
           ).click();
         }
         cy.get("[data-cy=winner]").should("contain", expected);
