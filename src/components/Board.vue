@@ -47,10 +47,11 @@ export default {
         this.diagonalCheck();
       }
     },
+    
     horizontalCheck() {
       //checking rows starts from first row
-      for (let row = 0; row <= this.rows - 1; row++) {
-        for (let col = 0; col <= this.cols - 1; col++) {
+      for (let row = 0; row < this.rows - 1; row++) {
+        for (let col = 0; col < this.cols - 1; col++) {
           let nextValue = this.board[row][col + 1]
           this.winnerCheck(row, col, nextValue);
         }
@@ -58,7 +59,7 @@ export default {
     },
     verticalCheck() {
       //checking columns starts from first column
-      for (let col = 0; col <= this.cols - 1; col++) {
+      for (let col = 0; col < this.cols - 1; col++) {
         for (let row = 0; row < this.rows - 1; row++) {
           let nextValue = this.board[row + 1][col]
           this.winnerCheck(row, col, nextValue);
