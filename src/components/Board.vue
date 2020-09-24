@@ -1,8 +1,8 @@
 <template>
   <div>
     <h2 v-if="!winner" data-cy="whosTurn">Turn: {{ whosTurn }}</h2>
-    <h2 v-else>{{ winner }}</h2>
-    <button @click.prevent="playAgain">Play New Game</button>
+    <h2 v-else data-cy="winner">{{ winner }}</h2>
+    <button @click.prevent="playAgain" data-cy="reload">Play New Game</button>
     <ul v-for="(row, x) of board" v-bind:key="x" data-cy="row">
       <li v-for="(col, y) of row" v-bind:key="y" v-on:click="turn(x, y)" data-cy="col">
         {{ board[x][y] }}
